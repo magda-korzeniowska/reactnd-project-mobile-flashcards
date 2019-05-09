@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { getDecks } from '../utils/api'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
+import { gray, white } from '../utils/colors'
 
 
 class DeckList extends Component {
@@ -18,13 +19,15 @@ class DeckList extends Component {
     const { decks } = this.props
 
     return (
-      <View>
+      <View style={styles.container}>
+
         {Object.keys(decks).map((deck) => {
-          const { title, question } = decks[deck]
+          const { title, questions } = decks[deck]
           return (
-            <View key={deck}>
-              <Text>{title}</Text>
-            </View>
+            <TouchableOpacity key={deck} style={styles.btn}>
+              <Text style={styles.deckTitle}>{title}</Text>
+              <Text style={styles.deckText}>{questions.length} cards</Text>
+            </TouchableOpacity>
           )
         })}
       </View>
@@ -35,8 +38,18 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    marginTop: 5,
+    padding: 10,
+    backgroundColor: gray,
+  },
+  btn: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 20,
+    padding: 20,
+    backgroundColor: white,
   }
 })
 
