@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mobile Flashcards",
-    "slug": "reactnd-project-mobile-flashcards",
+    "slug": "mobileflashcards",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
