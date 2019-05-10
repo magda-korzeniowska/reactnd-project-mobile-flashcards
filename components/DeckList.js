@@ -24,7 +24,9 @@ class DeckList extends Component {
         {Object.keys(decks).map((deck) => {
           const { title, questions } = decks[deck]
           return (
-            <TouchableOpacity key={deck} style={styles.btn}>
+            <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
+              'DeckDetails', { title: deck.title }
+            )}>
               <Text style={styles.deckTitle}>{title}</Text>
               <Text style={styles.deckText}>{questions.length} cards</Text>
             </TouchableOpacity>
