@@ -4,7 +4,7 @@ import { createBottomTabNavigator, createAppContainer, createStackNavigator } fr
 import DeckList from './DeckList'
 import AddDeck from './AddDeck'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
-import { orange, white } from '../utils/colors'
+import { orange, yellow, white } from '../utils/colors'
 import DeckDetails from './DeckDetails'
 
 const Tabs = createBottomTabNavigator({
@@ -40,7 +40,13 @@ const Stack = createStackNavigator({
     screen: Tabs
   },
   DeckDetails: {
-    screen: DeckDetails
+    screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: yellow,
+      }
+    }
   }
 })
 

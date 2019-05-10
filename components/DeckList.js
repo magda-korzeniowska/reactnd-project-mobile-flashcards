@@ -25,10 +25,10 @@ class DeckList extends Component {
           const { title, questions } = decks[deck]
           return (
             <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
-              'DeckDetails', { title: deck.title }
+              'DeckDetails', { deck }
             )}>
               <Text style={styles.deckTitle}>{title}</Text>
-              <Text style={styles.deckText}>{questions.length} cards</Text>
+              <Text style={styles.deckText}>{questions.length} {questions.length === 1 ? 'card' : 'cards' }</Text>
             </TouchableOpacity>
           )
         })}
