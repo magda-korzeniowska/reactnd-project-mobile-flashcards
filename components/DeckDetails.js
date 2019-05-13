@@ -19,13 +19,12 @@ class DeckDetails extends Component {
     if (deck.questions.length === 0) {
       return alert('No cards in deck', 'Add new card')
     } else {
-      navigation.navigate('Quiz', { deck })
+      navigation.navigate('Quiz', { deck: deck.title })
     }
   }
 
-
   render() {
-    const { deck, navigation } = this.props
+    const { deck } = this.props
 
     return (
       <View style={styles.container}>
