@@ -51,18 +51,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
-    marginTop: 5,
     padding: 10,
     backgroundColor: gray,
   },
   deckTitle: {
     textAlign: 'center',
     fontSize: 32,
-    fontWeight: '700'
+    fontWeight: '700',
+    marginTop: 40,
+    color: white,
   },
   deckText: {
     textAlign: 'center',
     fontSize: 20,
+    marginBottom: 40,
+    color: white
   },
   btn: {
     justifyContent: 'center',
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: orange
- },
+  },
 })
 
 function mapStateToProps(decks, { navigation }) {

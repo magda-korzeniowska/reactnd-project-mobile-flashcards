@@ -17,13 +17,46 @@ class Quiz extends Component {
   state = {
     currentIndex: 0,
     showAnswer: false,
-    correctAnswers: 0
+    correctAnswers: 0,
+    showResults: false
   }
 
- handleToggleCard = () => {
+  handleToggleCard = () => {
     this.setState((previousState) => ({
       showAnswer: !previousState.showAnswer,
     }))
+  }
+
+  handleAnswer= (answer) => {
+    const { questions } = this.props.deck
+    const { currentIndex, correctAnswers, showResults } = this.state
+
+    if (currentIndex < questions.length - 1) {
+      this.setState({
+        currentIndex: currentIndex + 1,
+        correctAnswers: answer === 'correct'
+          ? correctAnswers + 1
+          : correctAnswers
+      })
+    } else {
+      this.setState({
+        correctAnswers: answer === 'correct'
+          ? correctAnswers + 1
+          : correctAnswers,
+        showResults: !showResults
+      })
+
+    // show animation
+    }
+  }
+
+  resetQuiz = () => {
+    this.setState({
+      currentIndex: 0,
+      showAnswer: false,
+      correctAnswers: 0,
+      showResults: false
+    })
   }
 
   // toHome = () => {
@@ -33,34 +66,58 @@ class Quiz extends Component {
   // }
 
   render() {
-
     const { deck, navigation } = this.props
-    const { currentIndex, showAnswer } = this.state
-    const questionNo = this.state.currentIndex + 1
-
+    const { questions } = this.props.deck
+    const { currentIndex, showAnswer, showResults, correctAnswers } = this.state
 
     return (
       <View style={styles.container}>
-        <View style={styles.card}>
-          <Text style={styles.counter}>{questionNo} / {deck.questions.length}</Text>
 
-          {!showAnswer ? <Text style={styles.question}>{deck.questions[currentIndex].question}</Text>
-          : <Text style={styles.question}>{deck.questions[currentIndex].answer}</Text>}
+        {!showResults &&
+          <View style={styles.card}>
+            <Text style={styles.counter}>{currentIndex + 1} / {questions.length}</Text>
 
-
-          <TouchableOpacity style={styles.btn} onPress={this.handleToggleCard}>
-            <Text style={[styles.btnText, {fontSize: 22}]}>{!showAnswer ? 'Show Answer' : 'Show Question'}</Text>
-          </TouchableOpacity>
+            {!showAnswer
+              ? <Text style={styles.question}>{questions[currentIndex].question}</Text>
+              : <Text style={styles.answer}>{questions[currentIndex].answer}</Text>}
 
 
-          <TouchableOpacity style={[styles.btn, {backgroundColor: green}]} onPress={this.handleQuiz}>
-            <Text style={styles.btnText}>Correct</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.btn} onPress={this.handleToggleCard}>
+              <Text style={[styles.btnText, {fontSize: 22}]}>
+                {!showAnswer ? 'Show Answer' : 'Show Question'}
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn, {backgroundColor: red}]} onPress={this.handleQuiz}>
-            <Text style={styles.btnText}>Incorrect</Text>
-          </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.btn, {backgroundColor: green}]}
+              onPress={() => this.handleAnswer('correct')}>
+                <Text style={styles.btnText}>Correct</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.btn, {backgroundColor: red}]}
+              onPress={() => this.handleAnswer('incorrect')}>
+                <Text style={styles.btnText}>Incorrect</Text>
+            </TouchableOpacity>
           </View>
+        }
+
+        {showResults &&
+          <View style={styles.results}>
+            <Text style={styles.score}>Your results: {correctAnswers}/{questions.length}</Text>
+
+            <View>
+              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={this.resetQuiz}>
+                <Text style={[styles.btnText, {color: orange}]}>Restart Quiz</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={() => navigation.goBack()}>
+                <Text style={[styles.btnText, {color: orange}]}>Back to {deck.title} Deck</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+
       </View>
     )
   }
@@ -71,7 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
-    marginTop: 5,
     padding: 10,
     backgroundColor: gray,
   },
@@ -90,20 +146,35 @@ const styles = StyleSheet.create({
     color: white,
   },
   answer: {
-
+    textAlign: 'center',
+    fontSize: 20,
+    marginTop: 38,
+    color: white,
   },
   btn: {
-     justifyContent: 'center',
-     alignItems: 'center',
-     margin: 10,
-     padding: 10,
-     borderRadius: 5,
-   },
-   btnText: {
-      textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  btnText: {
+    textAlign: 'center',
       fontSize: 18,
       color: white
-   },
+  },
+  results: {
+     flex: 1,
+     marginTop: 40,
+  },
+   score: {
+     textAlign: 'center',
+     fontSize: 32,
+     fontWeight: '700',
+     marginBottom: 40,
+     color: white,
+  },
+
 })
 
 function mapStateToProps(decks, { navigation }) {

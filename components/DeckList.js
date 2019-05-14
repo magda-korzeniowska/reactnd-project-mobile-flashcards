@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { getDecks } from '../utils/api'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
-import { gray, white } from '../utils/colors'
+import { gray, white, orange } from '../utils/colors'
 
 
 class DeckList extends Component {
@@ -27,8 +27,8 @@ class DeckList extends Component {
             <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
               'DeckDetails', { deck }
             )}>
-              <Text style={styles.deckTitle}>{title}</Text>
-              <Text style={styles.deckText}>{questions.length} {questions.length === 1 ? 'card' : 'cards' }</Text>
+              <Text style={[styles.btnText, {fontWeight: '500'}]}>{title}</Text>
+              <Text style={styles.btnText}>{questions.length} {questions.length === 1 ? 'card' : 'cards' }</Text>
             </TouchableOpacity>
           )
         })}
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
-    marginTop: 5,
     padding: 10,
     backgroundColor: gray,
   },
@@ -53,7 +52,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: white,
-  }
+  },
+  btnText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: orange
+  },
 })
 
 function mapStateToProps(decks) {
