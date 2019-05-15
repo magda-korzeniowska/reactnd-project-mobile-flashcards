@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import { gray, white, orange, red, green } from '../utils/colors'
 import { connect } from 'react-redux'
-// import { NavigationActions } from 'react-navigation'
 
 class Quiz extends Component {
 
@@ -18,7 +17,9 @@ class Quiz extends Component {
     currentIndex: 0,
     showAnswer: false,
     correctAnswers: 0,
-    showResults: false
+    showResults: false,
+    spinValue: new Animated.Value(0),
+    springValue: new Animated.Value(0.3),
   }
 
   handleToggleCard = () => {
@@ -45,8 +46,7 @@ class Quiz extends Component {
           : correctAnswers,
         showResults: !showResults
       })
-
-    // show animation
+      this.handleAnimation()
     }
   }
 
@@ -59,22 +59,55 @@ class Quiz extends Component {
     })
   }
 
-  // toHome = () => {
-  //   this.props.navigation.dispatch(NavigationActions.back({
-  //     key: null
-  //   }))
-  // }
+  handleAnimation = () => {
+
+    const { spinValue, springValue } = this.state
+
+    Animated.sequence([
+      Animated.timing(spinValue, {
+        toValue: 360,
+        duration: 1200,
+        delay: 500,
+      }),
+      Animated.timing(spinValue, {
+        toValue: 0,
+        duration: 1000
+      })
+    ]).start()
+
+    Animated.spring(springValue, {
+      toValue: 1.2,
+      friction: 1,
+    }).start()
+  }
 
   render() {
     const { deck, navigation } = this.props
     const { questions } = this.props.deck
-    const { currentIndex, showAnswer, showResults, correctAnswers } = this.state
+    const { currentIndex, showAnswer, showResults, correctAnswers, spinValue, springValue } = this.state
+
+    const spin = spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '1080deg']
+    })
+
+    const spinStyles = {
+      transform: [
+        { rotate: spin }
+      ]
+    }
+
+    const springStyles = {
+      transform: [
+        { scale: springValue }
+      ]
+    }
 
     return (
       <View style={styles.container}>
 
         {!showResults &&
-          <View style={styles.card}>
+          <View>
             <Text style={styles.counter}>{currentIndex + 1} / {questions.length}</Text>
 
             {!showAnswer
@@ -106,13 +139,17 @@ class Quiz extends Component {
         {showResults &&
           <View style={styles.results}>
             <Text style={styles.score}>Your results: {correctAnswers}/{questions.length}</Text>
+            {correctAnswers > questions.length/2
+              ? <Animated.Text style={[styles.emoji, spinStyles]}>🥳</Animated.Text>
+              : <Animated.Text style={[styles.emoji, springStyles]}>☹️</Animated.Text>
+            }
 
             <View>
               <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={this.resetQuiz}>
                 <Text style={[styles.btnText, {color: orange}]}>Restart Quiz</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={() => navigation.goBack()}>
-                <Text style={[styles.btnText, {color: orange}]}>Back to {deck.title} Deck</Text>
+              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={() => navigation.navigate('Home')}>
+                <Text style={[styles.btnText, {color: orange}]}>Back to Deck List</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -130,9 +167,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     padding: 10,
     backgroundColor: gray,
-  },
-  card: {
-
   },
   counter: {
     alignSelf: 'flex-start',
@@ -171,10 +205,14 @@ const styles = StyleSheet.create({
      textAlign: 'center',
      fontSize: 32,
      fontWeight: '700',
-     marginBottom: 40,
+     marginBottom: 20,
      color: white,
   },
-
+  emoji: {
+    fontSize: 50,
+    textAlign: 'center',
+    marginBottom: 40
+  }
 })
 
 function mapStateToProps(decks, { navigation }) {
