@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform, ScrollView } from 'react-native'
 import { getDecks } from '../utils/api'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
@@ -20,18 +20,19 @@ class DeckList extends Component {
 
     return (
       <View style={styles.container}>
-
-        {Object.keys(decks).map((deck) => {
-          const { title, questions } = decks[deck]
-          return (
-            <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
-              'DeckDetails', { deck }
-            )}>
-              <Text style={[styles.btnText, {fontWeight: '500'}]}>{title}</Text>
-              <Text style={styles.btnText}>{questions.length} {questions.length === 1 ? 'card' : 'cards' }</Text>
-            </TouchableOpacity>
-          )
-        })}
+        <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'stretch'}}>
+          {Object.keys(decks).map((deck) => {
+            const { title, questions } = decks[deck]
+            return (
+              <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
+                'DeckDetails', { deck }
+              )}>
+                <Text style={[styles.btnText, {fontWeight: '500'}]}>{title}</Text>
+                <Text style={styles.btnText}>{questions.length} {questions.length === 1 ? 'card' : 'cards' }</Text>
+              </TouchableOpacity>
+            )
+          })}
+        </ScrollView>
       </View>
     )
   }
