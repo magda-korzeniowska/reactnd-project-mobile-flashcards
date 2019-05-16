@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, orange } from '../utils/colors'
 
@@ -17,7 +17,7 @@ class DeckDetails extends Component {
     const { deck, navigation } = this.props;
 
     if (deck.questions.length === 0) {
-      return alert('No cards in deck', 'Add new card')
+      return Alert.alert('No cards in deck', 'Add new card')
     } else {
       navigation.navigate('Quiz', { deck: deck.title })
     }

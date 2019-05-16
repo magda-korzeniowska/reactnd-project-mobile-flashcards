@@ -6,9 +6,14 @@ import {
   TextInput,
   Platform,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard,
+  Alert
 } from 'react-native'
+import { connect } from 'react-redux'
 import { gray, white, orange } from '../utils/colors'
+import { saveDeck } from '../utils/api'
+import { addDeck } from '../actions'
 
 class AddDeck extends Component {
 
@@ -23,8 +28,29 @@ class AddDeck extends Component {
   }
 
   handleAddDeck = () => {
-    
-    // TODO
+    const { text } = this.state
+    const { dispatch, navigation } = this.props
+
+    if (text.length > 0) {
+      const deck = {
+        [text]: {
+          title: text,
+          questions: []
+        }
+      }
+
+      saveDeck(text).then(() => {
+        dispatch(addDeck(deck))
+      })
+      navigation.navigate('DeckDetails', { deck: text }, Keyboard.dismiss())
+
+      this.setState((state) => ({
+        text: ''
+      }))
+
+    } else {
+      return Alert.alert('Enter a deck title')
+    }
   }
 
   render() {
@@ -32,7 +58,7 @@ class AddDeck extends Component {
     const { text } = this.state
 
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Text style={styles.header}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.textInput}
@@ -94,4 +120,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default AddDeck
+export default connect()(AddDeck)
