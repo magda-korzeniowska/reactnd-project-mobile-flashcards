@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, orange } from '../utils/colors'
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: Platform.OS === 'ios' ? 16 : 2,
     backgroundColor: white,
   },
   btnText: {
