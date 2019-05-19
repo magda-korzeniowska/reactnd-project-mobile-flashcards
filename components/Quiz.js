@@ -148,8 +148,8 @@ class Quiz extends Component {
               <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={this.resetQuiz}>
                 <Text style={[styles.btnText, {color: orange}]}>Restart Quiz</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={() => navigation.navigate('Home')}>
-                <Text style={[styles.btnText, {color: orange}]}>Back to Deck List</Text>
+              <TouchableOpacity style={[styles.btn, {backgroundColor: white}]} onPress={() => navigation.navigate('DeckDetails')}>
+                <Text style={[styles.btnText, {color: orange}]}>Back to Deck</Text>
               </TouchableOpacity>
             </View>
           </View>

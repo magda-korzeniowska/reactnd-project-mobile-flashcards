@@ -7,10 +7,13 @@ import {
   Platform,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, orange, white } from '../utils/colors'
+import { saveCard } from '../utils/api'
+import { addCard } from '../actions'
 
 class AddCard extends Component {
 
@@ -28,7 +31,28 @@ class AddCard extends Component {
   }
 
   handleAddCard = () => {
+    const { question, answer } = this.state
+    const { dispatch, navigation } = this.props
+    const { deck } = navigation.state.params
 
+    if (question.length > 0 && answer.length > 0) {
+      const card = {
+        question,
+        answer
+      }
+
+      saveCard(deck, card).then(() => {
+        dispatch(addCard(deck, card))
+        navigation.navigate('DeckDetails', { deck: deck }, Keyboard.dismiss())
+        this.setState((state) => ({
+          question: '',
+          answer: ''
+        }))
+      })
+
+    } else {
+      return Alert.alert('You need to enter both question and answer')
+    }
   }
 
   render() {
