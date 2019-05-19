@@ -20,7 +20,7 @@ class DeckList extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'stretch'}}>
+        <ScrollView>
           {Object.keys(decks).map((deck) => {
             const { title, questions } = decks[deck]
             return (

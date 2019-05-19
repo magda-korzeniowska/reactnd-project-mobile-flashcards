@@ -33,7 +33,7 @@ class DeckDetails extends Component {
           <Text style={styles.deckText}>{deck.questions.length} {deck.questions.length === 1 ? 'card' : 'cards' }</Text>
           <TouchableOpacity
             style={styles.btn} onPress={() => this.props.navigation.navigate(
-            'AddCard', { deck }
+            'AddCard', { deck: deck.title }
           )}>
             <Text style={styles.btnText}>Add Card</Text>
           </TouchableOpacity>

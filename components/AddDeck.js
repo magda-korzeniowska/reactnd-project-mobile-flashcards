@@ -41,12 +41,11 @@ class AddDeck extends Component {
 
       saveDeck(text).then(() => {
         dispatch(addDeck(deck))
+        navigation.navigate('DeckDetails', { deck: text }, Keyboard.dismiss())
+        this.setState((state) => ({
+          text: ''
+        }))
       })
-      navigation.navigate('DeckDetails', { deck: text }, Keyboard.dismiss())
-
-      this.setState((state) => ({
-        text: ''
-      }))
 
     } else {
       return Alert.alert('Enter a deck title')

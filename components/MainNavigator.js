@@ -7,6 +7,7 @@ import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { orange, yellow, white } from '../utils/colors'
 import DeckDetails from './DeckDetails'
 import Quiz from './Quiz'
+import AddCard from './AddCard'
 
 const Tabs = createBottomTabNavigator({
       Decks: {
@@ -16,7 +17,7 @@ const Tabs = createBottomTabNavigator({
           tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards' size={30} color={tintColor}/>
         }
       },
-      Add: {
+      AddDeck: {
         screen: AddDeck,
         navigationOptions: {
           tabBarLabel: 'Add Deck',
@@ -57,7 +58,16 @@ const Stack = createStackNavigator({
         backgroundColor: yellow
       }
     }
-  }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: yellow
+      }
+    }
+  },
 })
 
 const MainNavigator = createAppContainer(Stack)
