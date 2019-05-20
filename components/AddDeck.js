@@ -21,12 +21,6 @@ class AddDeck extends Component {
     text: ''
   }
 
-  handleTextChange = (text) => {
-    this.setState({
-      text
-    })
-  }
-
   handleAddDeck = () => {
     const { text } = this.state
     const { dispatch, navigation } = this.props
@@ -54,16 +48,14 @@ class AddDeck extends Component {
 
   render() {
 
-    const { text } = this.state
-
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Text style={styles.header}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.textInput}
-          onChangeText={this.handleTextChange}
+          onChangeText={(text) => this.setState({ text })}
           placeholder='Deck name'
-          value={text}
+          value={this.state.text}
         />
         <TouchableOpacity style={styles.btn} onPress={this.handleAddDeck}>
           <Text style={[styles.btnText, {fontWeight: '500'}]}>Add Deck</Text>
