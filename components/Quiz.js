@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Platform } from 'react-native'
 import { gray, white, orange, red, green } from '../utils/colors'
 import { connect } from 'react-redux'
+import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
 
@@ -47,6 +48,8 @@ class Quiz extends Component {
         showResults: !showResults
       })
       this.handleAnimation()
+      clearLocalNotifications()
+        .then(setLocalNotification)
     }
   }
 
