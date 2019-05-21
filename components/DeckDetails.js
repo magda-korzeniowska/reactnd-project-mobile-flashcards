@@ -38,7 +38,7 @@ class DeckDetails extends Component {
             <Text style={styles.btnText}>Add Card</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btn} onPress={this.handleQuiz}>
-            <Text style={styles.btnText}>Start Quiz</Text>
+            <Text style={styles.btnText}>Start a Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -31,14 +31,15 @@ class Quiz extends Component {
 
   handleAnswer= (answer) => {
     const { questions } = this.props.deck
-    const { currentIndex, correctAnswers, showResults } = this.state
+    const { currentIndex, correctAnswers, showResults, showAnswer } = this.state
 
     if (currentIndex < questions.length - 1) {
       this.setState({
         currentIndex: currentIndex + 1,
         correctAnswers: answer === 'correct'
           ? correctAnswers + 1
-          : correctAnswers
+          : correctAnswers,
+        showAnswer: false
       })
     } else {
       this.setState({
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   answer: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 24,
     marginTop: 38,
     color: white,
   },

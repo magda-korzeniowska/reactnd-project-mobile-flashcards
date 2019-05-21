@@ -21,7 +21,7 @@ class DeckList extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          {Object.keys(decks).map((deck) => {
+          {Object.keys(decks).sort().map((deck) => {
             const { title, questions } = decks[deck]
             return (
               <TouchableOpacity key={deck} style={styles.btn} onPress={() => this.props.navigation.navigate(
