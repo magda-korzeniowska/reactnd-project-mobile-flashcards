@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 import { gray, white, orange } from '../utils/colors'
 
-
 class DeckList extends Component {
 
   componentDidMount() {

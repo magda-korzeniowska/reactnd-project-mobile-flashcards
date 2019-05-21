@@ -59,7 +59,9 @@ class Quiz extends Component {
       currentIndex: 0,
       showAnswer: false,
       correctAnswers: 0,
-      showResults: false
+      showResults: false,
+      spinValue: new Animated.Value(0),
+      springValue: new Animated.Value(0.3)
     })
   }
 
