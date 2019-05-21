@@ -58,25 +58,25 @@ class AddCard extends Component {
   render() {
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <Text style={styles.header}>Question</Text>
+      <KeyboardAvoidingView style={styles.container} behavior='position' keyboardVerticalOffset={Platform.OS === 'ios' ? -140 : -110}>
+        <Text style={[styles.header, {marginTop: 25}]}>Question</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(question) => this.setState({ question })}
           placeholder='Question'
           value={this.state.question}
-          />
+        />
 
-          <Text style={styles.header}>Answer</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={(answer) => this.setState({ answer })}
-            placeholder='Answer'
-            value={this.state.answer}
-            />
-          <TouchableOpacity style={styles.btn} onPress={this.handleAddCard}>
-            <Text style={[styles.btnText, {fontWeight: '500'}]}>Add Card</Text>
-          </TouchableOpacity>
+        <Text style={styles.header}>Answer</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={(answer) => this.setState({ answer })}
+          placeholder='Answer'
+          value={this.state.answer}
+        />
+        <TouchableOpacity style={styles.btn} onPress={this.handleAddCard}>
+          <Text style={[styles.btnText, {fontWeight: '500'}]}>Add Card</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     )
   }
@@ -86,23 +86,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignSelf: 'stretch',
-    padding: 10,
-    backgroundColor: gray,
+    padding: 15,
+    backgroundColor: gray
   },
   header: {
     textAlign: 'center',
-    fontSize: 25,
-    marginTop: 25,
+    fontSize: 20,
     color: white,
   },
   textInput: {
-    alignSelf: 'stretch',
     backgroundColor: white,
-    fontSize: 20,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 20,
-    marginTop: 35,
+    fontSize: 18,
+    borderRadius: Platform.OS === 'ios' ? 16 : 5,
+    padding: 10,
+    paddingLeft: 20,
+    marginTop: 15,
     marginBottom: 35,
     shadowRadius: 3,
     shadowOpacity: 0.8,
@@ -113,11 +111,10 @@ const styles = StyleSheet.create({
     },
   },
   btn: {
-    justifyContent: 'center',
     alignSelf: 'center',
     width: 130,
     padding: 10,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    borderRadius: Platform.OS === 'ios' ? 16 : 5,
     backgroundColor: white,
   },
   btnText: {

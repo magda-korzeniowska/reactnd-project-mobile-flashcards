@@ -49,7 +49,7 @@ class AddDeck extends Component {
   render() {
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
+      <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
         <Text style={styles.header}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.textInput}
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: white,
     fontSize: 20,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    borderRadius: Platform.OS === 'ios' ? 16 : 5,
     padding: 20,
     marginTop: 35,
     marginBottom: 35,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 130,
     padding: 10,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    borderRadius: Platform.OS === 'ios' ? 16 : 5,
     backgroundColor: white,
   },
   btnText: {
