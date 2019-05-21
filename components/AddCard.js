@@ -58,7 +58,11 @@ class AddCard extends Component {
   render() {
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='position' keyboardVerticalOffset={Platform.OS === 'ios' ? -140 : -110}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior='position'
+        keyboardVerticalOffset={Platform.OS === 'ios' ? -140 : -110}
+        >
         <Text style={[styles.header, {marginTop: 25}]}>Question</Text>
         <TextInput
           style={styles.textInput}

@@ -49,7 +49,11 @@ class AddDeck extends Component {
   render() {
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior='position'
+        keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : -110}
+        >
         <Text style={styles.header}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.textInput}
@@ -69,8 +73,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignSelf: 'stretch',
-    padding: 10,
+    // alignSelf: 'stretch',
+    padding: 15,
     backgroundColor: gray,
   },
   header: {
