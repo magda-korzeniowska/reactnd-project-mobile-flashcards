@@ -26,7 +26,7 @@ class DeckDetails extends Component {
   }
 
   deleteDeck = (deck) => {
-    const { dispatch, navigation } = this.props
+    const { dispatch, decks, navigation } = this.props
 
     removeDeck(deck)
       .then(() => {
