@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform, Alert } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, white, orange } from '../utils/colors'
+import { gray, white, orange, red } from '../utils/colors'
+import { removeDeck, getDecks } from '../utils/api'
+import { receiveDecks } from '../actions'
 
 class DeckDetails extends Component {
 
@@ -10,7 +12,7 @@ class DeckDetails extends Component {
 
     return {
       title: deck
-   }
+    }
   }
 
   handleQuiz = () => {
@@ -21,6 +23,19 @@ class DeckDetails extends Component {
     } else {
       navigation.navigate('Quiz', { deck: deck.title })
     }
+  }
+
+  deleteDeck = (deck) => {
+    const { dispatch, navigation } = this.props
+
+    removeDeck(deck)
+      .then(() => {
+        getDecks()
+          .then((decks) => {
+            dispatch(receiveDecks(decks))
+            navigation.goBack()
+          })
+      })
   }
 
   render() {
@@ -39,6 +54,9 @@ class DeckDetails extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.btn} onPress={this.handleQuiz}>
             <Text style={styles.btnText}>Start a Quiz</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.btn, {backgroundColor: red}]} onPress={() => this.deleteDeck(deck.title)}>
+            <Text style={[styles.btnText, {color: white}]}>Delete Deck</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -86,7 +104,8 @@ function mapStateToProps(decks, { navigation }) {
   const { deck } = navigation.state.params
 
   return {
-    deck: decks[deck]
+    decks,
+    deck: decks[deck],
   }
 }
 

@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Keyboard,
-  Alert
+  Alert,
+  TouchableWithoutFeedback
 } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, orange } from '../utils/colors'
@@ -49,22 +50,25 @@ class AddDeck extends Component {
   render() {
 
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior='position'
-        keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : -110}
-        >
-        <Text style={styles.header}>What is the title of your new deck?</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={(text) => this.setState({ text })}
-          placeholder='Deck name'
-          value={this.state.text}
-        />
-        <TouchableOpacity style={styles.btn} onPress={this.handleAddDeck}>
-          <Text style={[styles.btnText, {fontWeight: '500'}]}>Add Deck</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior='position'
+          keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : -110}
+          keyboardShouldPersistTaps="handled"
+          >
+          <Text style={styles.header}>What is the title of your new deck?</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({ text })}
+            placeholder='Deck name'
+            value={this.state.text}
+          />
+          <TouchableOpacity style={styles.btn} onPress={this.handleAddDeck}>
+            <Text style={[styles.btnText, {fontWeight: '500'}]}>Create Deck</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -73,7 +77,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    // alignSelf: 'stretch',
     padding: 15,
     backgroundColor: gray,
   },

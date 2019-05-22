@@ -22,7 +22,7 @@ class AddCard extends Component {
 
     return {
        title: `Add Card to ${deck}`,
-   }
+    }
   }
 
   state = {
@@ -63,7 +63,7 @@ class AddCard extends Component {
         behavior='position'
         keyboardVerticalOffset={Platform.OS === 'ios' ? -140 : -110}
         >
-        <Text style={[styles.header, {marginTop: 25}]}>Question</Text>
+        <Text style={[styles.header, {marginTop: 25}]}>What is the Question?</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(question) => this.setState({ question })}
@@ -71,7 +71,7 @@ class AddCard extends Component {
           value={this.state.question}
         />
 
-        <Text style={styles.header}>Answer</Text>
+        <Text style={styles.header}>What is the Answer?</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(answer) => this.setState({ answer })}
@@ -79,7 +79,7 @@ class AddCard extends Component {
           value={this.state.answer}
         />
         <TouchableOpacity style={styles.btn} onPress={this.handleAddCard}>
-          <Text style={[styles.btnText, {fontWeight: '500'}]}>Add Card</Text>
+          <Text style={[styles.btnText, {fontWeight: '500'}]}>Create Card</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
