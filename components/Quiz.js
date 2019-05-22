@@ -112,33 +112,43 @@ class Quiz extends Component {
     return (
       <View style={styles.container}>
 
-        {!showResults &&
-          <View>
-            <Text style={styles.counter}>{currentIndex + 1} / {questions.length}</Text>
+      {!showResults &&
+        <View>
+          <Text style={styles.counter}>{currentIndex + 1} / {questions.length}</Text>
 
-            {!showAnswer
-              ? <Text style={styles.question}>{questions[currentIndex].question}</Text>
-              : <Text style={styles.answer}>{questions[currentIndex].answer}</Text>}
+          {!showAnswer
+            ? <View>
+                <Text style={styles.question}>{questions[currentIndex].question}</Text>
 
+                <TouchableOpacity style={styles.btn} onPress={this.handleToggleCard}>
+                  <Text style={[styles.btnText, {fontSize: 22}]}>
+                    Show Answer
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
-            <TouchableOpacity style={styles.btn} onPress={this.handleToggleCard}>
-              <Text style={[styles.btnText, {fontSize: 22}]}>
-                {!showAnswer ? 'Show Answer' : 'Show Question'}
-              </Text>
-            </TouchableOpacity>
+            : <View>
+                <Text style={styles.answer}>{questions[currentIndex].answer}</Text>
 
+                <TouchableOpacity style={styles.btn} onPress={this.handleToggleCard}>
+                  <Text style={[styles.btnText, {fontSize: 22}]}>
+                    Show Question
+                  </Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.btn, {backgroundColor: green}]}
-              onPress={() => this.handleAnswer('correct')}>
-                <Text style={styles.btnText}>Correct</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btn, {backgroundColor: green}]}
+                  onPress={() => this.handleAnswer('correct')}>
+                    <Text style={styles.btnText}>Correct</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.btn, {backgroundColor: red}]}
-              onPress={() => this.handleAnswer('incorrect')}>
-                <Text style={styles.btnText}>Incorrect</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btn, {backgroundColor: red}]}
+                  onPress={() => this.handleAnswer('incorrect')}>
+                    <Text style={styles.btnText}>Incorrect</Text>
+                </TouchableOpacity>
+              </View>
+            }
           </View>
         }
 
